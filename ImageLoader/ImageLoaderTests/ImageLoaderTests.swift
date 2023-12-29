@@ -1,14 +1,14 @@
 //
-//  AppUITests.swift
-//  AppUITests
+//  ImageLoaderTests.swift
+//  ImageLoaderTests
 //
 //  Created by Konstadinos Karayannis on 29/12/2023.
 //
 
 import XCTest
-@testable import AppUI
+@testable import ImageLoader
 
-final class AppUITests: XCTestCase {
+final class ImageLoaderTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
