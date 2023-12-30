@@ -2,7 +2,7 @@ import Combine
 import Foundation
 
 extension Publisher<Data, Error> {
-    public func cacheable(cache: PublisherCaching) -> AnyPublisher<Data, Error> {
+    public func cache(_ cache: PublisherCaching) -> AnyPublisher<Data, Error> {
         cache.cacheElements(from: self)
         
         let cachePublisher = cache.cachedDataPublisher
@@ -16,7 +16,7 @@ extension Publisher<Data, Error> {
                 hasEmittedElement = true
             })
             .tryCatch { error in
-                if !hasEmittedElement {
+                guard hasEmittedElement else {
                     throw error
                 }
                 return Empty<Data, Error>()

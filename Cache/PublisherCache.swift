@@ -11,7 +11,6 @@ public protocol PublisherCaching {
 }
 
 public final class PublisherCache: PublisherCaching {
-    
     private let key: String
     private let cache: Caching
     

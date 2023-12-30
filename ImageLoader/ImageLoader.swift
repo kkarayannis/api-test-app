@@ -30,7 +30,7 @@ public final class ImageLoader: ImageLoading {
                 NSLog(error.localizedDescription)
                 return ImageLoaderError.networkError
             }
-            .cacheable(cache: PublisherCache(key: url.absoluteString.toBase64(), cache: cache))
+            .cache(PublisherCache(key: url.absoluteString.toBase64(), cache: cache))
             .tryMap {
                 guard let image = UIImage(data: $0 ) else {
                     throw ImageLoaderError.imageDecodingError

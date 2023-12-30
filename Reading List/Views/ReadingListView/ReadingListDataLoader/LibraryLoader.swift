@@ -36,7 +36,7 @@ final class LibraryLoader: LibraryLoading {
                 NSLog(error.localizedDescription)
                 return LibraryLoaderError.networkError
             }
-            .cacheable(cache: PublisherCache(key: "library".toBase64(), cache: cache))
+            .cache(PublisherCache(key: "library".toBase64(), cache: cache))
             .tryMap {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase

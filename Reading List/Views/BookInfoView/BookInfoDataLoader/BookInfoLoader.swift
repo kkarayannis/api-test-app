@@ -34,7 +34,7 @@ final class BookInfoLoader: BookInfoLoading {
                 NSLog(error.localizedDescription)
                 return BookLoaderError.networkError
             }
-            .cacheable(cache: PublisherCache(key: bookID.toBase64(), cache: cache))
+            .cache(PublisherCache(key: bookID.toBase64(), cache: cache))
             .tryMap {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
