@@ -7,7 +7,7 @@ protocol LibraryLoading {
     var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> { get }
 }
 
-enum LibraryLoaderError: Error {
+private enum LibraryLoaderError: Error {
     case invalidURL
     case networkError
 }

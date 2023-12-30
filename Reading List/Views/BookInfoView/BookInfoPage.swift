@@ -3,15 +3,15 @@ import SwiftUI
 
 import PageLoader
 
-final class ReadingListPage: Page {
-    private let viewModel: ReadingListViewModel
+final class BookInfoPage: Page {
+    private let viewModel: BookInfoViewModel
     
-    init(viewModel: ReadingListViewModel) {
+    init(viewModel: BookInfoViewModel) {
         self.viewModel = viewModel
     }
     
     var view: AnyView {
-        ReadingListView(viewModel: viewModel)
+        BookInfoView(viewModel: viewModel)
             .eraseToAnyView()
     }
     
@@ -24,10 +24,11 @@ final class ReadingListPage: Page {
     }
     
     var titleDisplayMode: ToolbarTitleDisplayMode {
-        .large
+        .inline
     }
     
     func load() {
-        viewModel.loadItems()
+        viewModel.loadBookInfo()
     }
+    
 }

@@ -6,7 +6,7 @@ import ImageLoader
 
 final class ReadingListViewModel {
     private let libraryLoader: LibraryLoading
-    let imageLoader: ImageLoading
+    private let imageLoader: ImageLoading
         
     let title = "Reading List" // TODO: Localize
     
@@ -29,6 +29,7 @@ final class ReadingListViewModel {
         }
         .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
+    
     lazy var pageStatePublisher: AnyPublisher<PageLoaderState, Never> = $itemsResult
         .tryCompactMap { result in
             switch result {
@@ -70,9 +71,12 @@ final class ReadingListViewModel {
             ReadingListItemViewModel(
                 title: $0.work.title,
                 id: $0.work.key,
-                authors: $0.work.authorNames.localizedJoined(separator: ", "),
+                authors: $0.work.authorNames.localizedJoined(),
                 year: String($0.work.firstPublishYear),
-                coverModel: CoverModel(url: $0.coverImageURL(size: .m), imageLoader: imageLoader)
+                coverModel: CoverModel(
+                    url: CoverImageURL.url(for: $0.work.coverId, size: .m),
+                    imageLoader: imageLoader
+                )
             )
         }
     }
@@ -80,7 +84,7 @@ final class ReadingListViewModel {
     #if DEBUG
     // Used for Previews only
     func __setItems(_ items: [ReadingListItemViewModel]) {
-        self.itemsResult = .success(items)
+        itemsResult = .success(items)
     }
     #endif
 }

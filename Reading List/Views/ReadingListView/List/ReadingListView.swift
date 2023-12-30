@@ -13,15 +13,12 @@ struct ReadingListView: View {
         
     var body: some View {
         List(items) { item in
-            NavigationLink(value: PageType.bookInfo(id: item.id)) {
+            NavigationLink(value: PageType.bookInfo(id: item.id, title: item.title)) {
                 ReadingListItemView(viewModel: item)
             }
         }
         .onReceive(viewModel.itemsPublisher) {
             items = $0
-        }
-        .refreshable {
-            viewModel.loadItems()
         }
     }
 }

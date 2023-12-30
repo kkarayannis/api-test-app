@@ -18,14 +18,10 @@ final class ServiceProvider: ServiceProviding {
     
     private let user = UserImplementation()
     
-    private lazy var openLibraryService = OpenLibraryServiceImplementation(dataLoader: dataLoader, user: user)
-    func provideOpenLibraryService() -> OpenLibraryService {
-        openLibraryService
-    }
-    
     private lazy var pageFactory = PageFactoryImplementation(
-        libraryLoader: openLibraryService.createLibraryLoader(),
-        imageLoader: imageLoader
+        libraryLoader: LibraryLoader(dataLoader: dataLoader, user: user),
+        imageLoader: imageLoader,
+        bookInfoLoader: BookInfoLoader(dataLoader: dataLoader)
     )
     func providePageFactory() -> PageFactory {
         pageFactory

@@ -11,6 +11,7 @@ public protocol Page {
     var view: AnyView { get }
     var title: String { get }
     var loadingStatePublisher: AnyPublisher<PageLoaderState, Never> { get }
+    var titleDisplayMode: ToolbarTitleDisplayMode { get }
     func load()
 }
 
@@ -39,8 +40,12 @@ public struct PageLoader: View {
             }
         }
         .navigationTitle(page.title)
+        .toolbarTitleDisplayMode(page.titleDisplayMode)
         .onReceive(page.loadingStatePublisher) {
             state = $0
+        }
+        .refreshable {
+            page.load()
         }
     }
 }

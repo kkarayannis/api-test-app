@@ -30,7 +30,6 @@ struct CoverView: View {
     }
 }
 
-// View Model
 final class CoverModel {
     let url: URL?
     private let imageLoader: ImageLoading
