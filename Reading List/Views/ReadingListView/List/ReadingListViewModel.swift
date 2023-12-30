@@ -5,7 +5,7 @@ import PageLoader
 import ImageLoader
 
 final class ReadingListViewModel {
-    private let libraryLoader: LibraryLoading
+    private let readingListLoader: ReadingListLoading
     private let imageLoader: ImageLoading
         
     let title = "Reading List" // TODO: Localize
@@ -13,8 +13,8 @@ final class ReadingListViewModel {
     @Published private var itemsResult: Result<[ReadingListItemViewModel], Error>?
     private var cancellable: AnyCancellable?
     
-    init(libraryLoader: LibraryLoading, imageLoader: ImageLoading) {
-        self.libraryLoader = libraryLoader
+    init(readingListLoader: ReadingListLoading, imageLoader: ImageLoading) {
+        self.readingListLoader = readingListLoader
         self.imageLoader = imageLoader
     }
     
@@ -54,9 +54,9 @@ final class ReadingListViewModel {
         .eraseToAnyPublisher()
     
     func loadItems() {
-        cancellable = libraryLoader.readingLogLoadingPublisher
+        cancellable = readingListLoader.readingLogLoadingPublisher
             .receive(on: DispatchQueue.main)
-            .tryMap { [weak self] readingLog in
+            .map { [weak self] readingLog in
                 guard let self else {
                     return []
                 }

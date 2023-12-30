@@ -4,6 +4,7 @@ import Cache
 import DataLoader
 import ImageLoader
 
+/// An object that instantiates and holds references to long-living objects.
 protocol ServiceProviding {
     func provideDataLoader() -> DataLoading
     func providePageFactory() -> PageFactory
@@ -26,7 +27,7 @@ final class ServiceProvider: ServiceProviding {
     }
     
     private lazy var pageFactory = PageFactoryImplementation(
-        libraryLoader: LibraryLoader(dataLoader: dataLoader, user: user, cache: cache),
+        readingListLoader: ReadingListLoader(dataLoader: dataLoader, user: user, cache: cache),
         imageLoader: imageLoader,
         bookInfoLoader: BookInfoLoader(dataLoader: dataLoader, cache: cache)
     )

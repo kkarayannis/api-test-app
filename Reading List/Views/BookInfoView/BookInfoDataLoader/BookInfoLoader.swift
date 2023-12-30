@@ -4,6 +4,7 @@ import Foundation
 import Cache
 import DataLoader
 
+/// Loads book information from the network.
 protocol BookInfoLoading {
     func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error>
 }

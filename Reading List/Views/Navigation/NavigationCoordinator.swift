@@ -2,6 +2,7 @@ import SwiftUI
 
 import PageLoader
 
+/// The view that is responsible for Navigation.
 struct NavigationCoordinator: View {
     let rootPageType: PageType
     let pageFactory: PageFactory

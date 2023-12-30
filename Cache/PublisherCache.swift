@@ -5,6 +5,7 @@ enum PublisherCacheError: Error {
     case noDataForKey
 }
 
+/// Caches elements from a publisher and produces a publisher for cached elements.
 public protocol PublisherCaching {
     func cacheElements(from publisher: some Publisher<Data, Error>)
     var cachedDataPublisher: any Publisher<Data, Error> { get }

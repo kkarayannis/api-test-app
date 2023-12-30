@@ -8,17 +8,18 @@ enum PageType: Hashable {
     case bookInfo(id: String, title: String)
 }
 
+/// Responsible for creating pages.
 protocol PageFactory {
     func createPage(for type: PageType) -> any Page
 }
 
 final class PageFactoryImplementation: PageFactory {
-    private let libraryLoader: LibraryLoading
+    private let readingListLoader: ReadingListLoading
     private let imageLoader: ImageLoading
     private let bookInfoLoader: BookInfoLoading
     
-    init(libraryLoader: LibraryLoading, imageLoader: ImageLoading, bookInfoLoader: BookInfoLoading) {
-        self.libraryLoader = libraryLoader
+    init(readingListLoader: ReadingListLoading, imageLoader: ImageLoading, bookInfoLoader: BookInfoLoading) {
+        self.readingListLoader = readingListLoader
         self.imageLoader = imageLoader
         self.bookInfoLoader = bookInfoLoader
     }
@@ -33,7 +34,7 @@ final class PageFactoryImplementation: PageFactory {
     }
     
     private func createReadingListPage() -> any Page {
-        let viewModel = ReadingListViewModel(libraryLoader: libraryLoader, imageLoader: imageLoader)
+        let viewModel = ReadingListViewModel(readingListLoader: readingListLoader, imageLoader: imageLoader)
         return ReadingListPage(viewModel: viewModel)
     }
     

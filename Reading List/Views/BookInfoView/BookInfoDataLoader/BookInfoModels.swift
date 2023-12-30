@@ -1,5 +1,6 @@
 import Foundation
 
+/// The objects that are received from the book information endpoint.
 struct BookInfo: Codable {
     let subjects: [String]
     let title: String

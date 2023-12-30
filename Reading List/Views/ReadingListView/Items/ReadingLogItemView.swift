@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// View that displays an item in the reading list.
 struct ReadingListItemView: View {
     private let viewModel: ReadingListItemViewModel
     

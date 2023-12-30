@@ -3,6 +3,7 @@ import SwiftUI
 
 import ImageLoader
 
+/// View that displays the covers of the books.
 struct CoverView: View {
     private let viewModel: CoverViewModel
     @State private var image: UIImage? = nil

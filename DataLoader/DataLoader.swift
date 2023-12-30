@@ -5,6 +5,7 @@ public enum DataLoaderMethod: String {
     case get = "GET"
 }
 
+/// Loads data from the network.
 public protocol DataLoading {
     func loadData(for url: URL, parameters: [String: Any]?, method: DataLoaderMethod) -> AnyPublisher<Data, URLError>
 }

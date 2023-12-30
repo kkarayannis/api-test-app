@@ -2,6 +2,7 @@ import SwiftUI
 
 import ImageLoader
 
+/// View that displays information about a book.
 struct BookInfoView: View {
     private let viewModel: BookInfoViewModel
     @State private var bookInfo: BookInfo?
@@ -42,18 +43,16 @@ private struct BookInfoContentView: View {
                     .font(.title3)
             }
         }.padding([.bottom])
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Subjects: \(bookInfo.subjects.localizedJoined())") // TODO: localize
                 .font(.caption)
             if let people = bookInfo.subjectPeople?.localizedJoined() {
                 Text("People: \(people)")
                     .font(.caption)
-                    .padding([.top, .bottom])
             }
             if let places = bookInfo.subjectPlaces?.localizedJoined() {
                 Text("Places: \(places)")
                     .font(.caption)
-                    .padding([.top, .bottom])
             }
             if let description = bookInfo.description {
                 Text(description)

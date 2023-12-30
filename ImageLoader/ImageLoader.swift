@@ -5,6 +5,7 @@ import SwiftUI
 import Cache
 import DataLoader
 
+/// Loads images from the network.
 public protocol ImageLoading {
     func loadImage(for url: URL) -> AnyPublisher<UIImage, Error>
 }

@@ -4,16 +4,17 @@ import Foundation
 import Cache
 import DataLoader
 
-protocol LibraryLoading {
+/// Loads the reading list information from the network
+protocol ReadingListLoading {
     var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> { get }
 }
 
-private enum LibraryLoaderError: Error {
+private enum ReadingListLoaderError: Error {
     case invalidURL
     case networkError
 }
 
-final class LibraryLoader: LibraryLoading {
+final class ReadingListLoader: ReadingListLoading {
     private let dataLoader: DataLoading
     private let user: User
     private let cache: Caching
@@ -26,7 +27,7 @@ final class LibraryLoader: LibraryLoading {
     
     var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> {
         guard let url = OpenLibraryAPI.url(for: user.username) else {
-            return Fail(error: LibraryLoaderError.invalidURL)
+            return Fail(error: ReadingListLoaderError.invalidURL)
                 .eraseToAnyPublisher()
         }
         
@@ -34,7 +35,7 @@ final class LibraryLoader: LibraryLoading {
             .mapError { error in
                 // Handle network error more granularly if needed here.
                 NSLog(error.localizedDescription)
-                return LibraryLoaderError.networkError
+                return ReadingListLoaderError.networkError
             }
             .cache(PublisherCache(key: "library".toBase64(), cache: cache))
             .tryMap {
@@ -46,13 +47,13 @@ final class LibraryLoader: LibraryLoading {
     }
     
     #if DEBUG
-    private struct LibraryLoaderFake: LibraryLoading {
+    private struct ReadingListLoaderFake: ReadingListLoading {
         var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> {
             Fail(error: PreviewError.unimplemented)
                 .eraseToAnyPublisher()
         }
     }
-    static var fake: LibraryLoading { LibraryLoaderFake() }
+    static var fake: ReadingListLoading { ReadingListLoaderFake() }
     #endif
 }
 

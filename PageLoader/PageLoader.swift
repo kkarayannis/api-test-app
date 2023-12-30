@@ -1,12 +1,14 @@
 import Combine
 import SwiftUI
 
+/// The different states that a loadable page can be in.
 public enum PageLoaderState {
     case loading
     case loaded
     case error
 }
 
+/// Interface for a loadable page.
 public protocol Page {
     var view: AnyView { get }
     var title: String { get }
@@ -15,6 +17,8 @@ public protocol Page {
     func load()
 }
 
+/// This view take care of the different state of loadable pages. It shows a loading indicator then the page is loading,
+/// an error view if an error occurred and the page itself if it is loaded.
 public struct PageLoader: View {
     let page: any Page
     @State private var state: PageLoaderState = .loading

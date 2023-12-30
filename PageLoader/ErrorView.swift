@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A generic error view with a button to retry loading.
 struct ErrorView: View {
     let reloadCallback: () -> Void
     

@@ -3,6 +3,7 @@ import SwiftUI
 
 import ImageLoader
 
+/// View that displays a list of books.
 struct ReadingListView: View {
     @State private var items = [ReadingListItemViewModel]()
     private let viewModel: ReadingListViewModel
@@ -24,7 +25,7 @@ struct ReadingListView: View {
 }
 
 #Preview {
-    let viewModel = ReadingListViewModel(libraryLoader: LibraryLoader.fake, imageLoader: ImageLoader.fake)
+    let viewModel = ReadingListViewModel(readingListLoader: ReadingListLoader.fake, imageLoader: ImageLoader.fake)
     viewModel.__setItems([ReadingListItemViewModel.example])
     
     return ReadingListView(viewModel: viewModel)

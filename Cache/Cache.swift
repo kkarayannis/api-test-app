@@ -5,6 +5,7 @@ enum CacheError: Error {
     case cannotStoreData
 }
 
+/// Generic storage solution for caching data
 public protocol Caching {
     func store(data: Data, key: String) async throws
     func data(for key: String) async throws -> Data?
