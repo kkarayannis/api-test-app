@@ -19,6 +19,7 @@ struct CoverView: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             } else {
                 Color.gray
             }
