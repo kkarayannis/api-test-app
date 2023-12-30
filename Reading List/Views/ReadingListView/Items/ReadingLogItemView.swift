@@ -9,7 +9,7 @@ struct ReadingListItemView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            CoverView(model: viewModel.coverModel)
+            CoverView(viewModel: viewModel.coverViewModel)
                 .frame(height: 150)
             VStack(alignment: .leading) {
                 Text(viewModel.title)

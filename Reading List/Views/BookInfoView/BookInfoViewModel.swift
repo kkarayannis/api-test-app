@@ -11,10 +11,10 @@ final class BookInfoViewModel {
     
     var title: String
     
-    @Published private var bookInfoResult: Result<Book, Error>?
+    @Published private var bookInfoResult: Result<BookInfo, Error>?
     private var cancellable: AnyCancellable?
     
-    lazy var bookInfoPublisher: AnyPublisher<Book, Never> = $bookInfoResult
+    lazy var bookInfoPublisher: AnyPublisher<BookInfo, Never> = $bookInfoResult
         .compactMap { result in
             switch result {
             case .success(let bookInfo):
@@ -65,7 +65,7 @@ final class BookInfoViewModel {
     
 #if DEBUG
     // Used for Previews only
-    func __setBookInfo(_ bookInfo: Book) {
+    func __setBookInfo(_ bookInfo: BookInfo) {
         bookInfoResult = .success(bookInfo)
     }
 #endif

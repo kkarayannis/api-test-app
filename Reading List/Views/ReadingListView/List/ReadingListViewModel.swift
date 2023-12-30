@@ -73,7 +73,7 @@ final class ReadingListViewModel {
                 id: $0.work.key,
                 authors: $0.work.authorNames.localizedJoined(),
                 year: String($0.work.firstPublishYear),
-                coverModel: CoverModel(
+                coverViewModel: CoverViewModel(
                     url: CoverImageURL.url(for: $0.work.coverId, size: .m),
                     imageLoader: imageLoader
                 )

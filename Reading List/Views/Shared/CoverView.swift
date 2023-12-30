@@ -4,14 +4,14 @@ import SwiftUI
 import ImageLoader
 
 struct CoverView: View {
-    private let model: CoverModel
+    private let viewModel: CoverViewModel
     @State private var image: UIImage? = nil
     
-    init(model: CoverModel) {
-        self.model = model
+    init(viewModel: CoverViewModel) {
+        self.viewModel = viewModel
         
         image = nil
-        model.load()
+        viewModel.load()
     }
     
     var body: some View {
@@ -24,13 +24,13 @@ struct CoverView: View {
             }
         }
         .aspectRatio(0.67, contentMode: .fit)
-        .onReceive(model.$image) {
+        .onReceive(viewModel.$image) {
             image = $0
         }
     }
 }
 
-final class CoverModel {
+final class CoverViewModel {
     let url: URL?
     private let imageLoader: ImageLoading
     

@@ -1,6 +1,6 @@
 import Foundation
 
-struct Book: Codable {
+struct BookInfo: Codable {
     let subjects: [String]
     let title: String
     let covers: [Int]

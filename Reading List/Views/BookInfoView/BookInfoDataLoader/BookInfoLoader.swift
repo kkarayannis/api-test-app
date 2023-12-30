@@ -4,7 +4,7 @@ import Foundation
 import DataLoader
 
 protocol BookInfoLoading {
-    func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<Book, Error>
+    func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error>
 }
 
 private enum BookLoaderError: Error {
@@ -19,7 +19,7 @@ final class BookInfoLoader: BookInfoLoading {
         self.dataLoader = dataLoader
     }
     
-    func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<Book, Error> {
+    func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error> {
         guard let url = OpenLibraryAPI.url(for: bookID) else {
             return Fail(error: BookLoaderError.invalidURL)
                 .eraseToAnyPublisher()
@@ -35,14 +35,14 @@ final class BookInfoLoader: BookInfoLoading {
             .tryMap {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                return try decoder.decode(Book.self, from: $0)
+                return try decoder.decode(BookInfo.self, from: $0)
             }
             .eraseToAnyPublisher()
     }
     
 #if DEBUG
     private struct BookInfoLoaderFake: BookInfoLoading {
-        func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<Book, Error> {
+        func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error> {
             Fail(error: PreviewError.unimplemented)
                 .eraseToAnyPublisher()
         }

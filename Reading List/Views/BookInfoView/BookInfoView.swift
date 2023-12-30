@@ -4,7 +4,7 @@ import ImageLoader
 
 struct BookInfoView: View {
     private let viewModel: BookInfoViewModel
-    @State private var bookInfo: Book?
+    @State private var bookInfo: BookInfo?
     
     init(viewModel: BookInfoViewModel) {
         self.viewModel = viewModel
@@ -28,12 +28,12 @@ struct BookInfoView: View {
 }
 
 private struct BookInfoContentView: View {
-    let bookInfo: Book
+    let bookInfo: BookInfo
     let imageLoader: ImageLoading
     
     var body: some View {
         VStack {
-            CoverView(model: coverViewModel)
+            CoverView(viewModel: coverViewModel)
                 .frame(height: 300)
             Text(bookInfo.title)
                 .font(.title)
@@ -61,15 +61,15 @@ private struct BookInfoContentView: View {
         }
     }
     
-    private var coverViewModel: CoverModel {
+    private var coverViewModel: CoverViewModel {
         let coverURL = CoverImageURL.url(for: bookInfo.covers.first, size: .m)
-        return CoverModel(url: coverURL, imageLoader: imageLoader)
+        return CoverViewModel(url: coverURL, imageLoader: imageLoader)
     }
 }
 
 #Preview {
     let viewModel = BookInfoViewModel(id: "id", bookInfoLoader: BookInfoLoader.fake, imageLoader: ImageLoader.fake, title: "Actually, My Name is J")
-    let bookInfo = Book(
+    let bookInfo = BookInfo(
         subjects: ["Comedy", "Romantic"],
         title: "Actually, My Name is J",
         covers: [],
