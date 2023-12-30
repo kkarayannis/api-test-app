@@ -84,6 +84,17 @@
                ReferencedContainer = "container:Reading List.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2E210C112B406F0200D098AD"
+               BuildableName = "CacheTests.xctest"
+               BlueprintName = "CacheTests"
+               ReferencedContainer = "container:Reading List.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

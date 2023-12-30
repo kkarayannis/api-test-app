@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 
+import Cache
 import DataLoader
 
 protocol LibraryLoading {
@@ -15,10 +16,12 @@ private enum LibraryLoaderError: Error {
 final class LibraryLoader: LibraryLoading {
     private let dataLoader: DataLoading
     private let user: User
+    private let cache: Caching
     
-    init(dataLoader: DataLoading, user: User) {
+    init(dataLoader: DataLoading, user: User, cache: Caching) {
         self.dataLoader = dataLoader
         self.user = user
+        self.cache = cache
     }
     
     var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> {
@@ -33,7 +36,7 @@ final class LibraryLoader: LibraryLoading {
                 NSLog(error.localizedDescription)
                 return LibraryLoaderError.networkError
             }
-        // TODO: Caching
+            .cacheable(cache: PublisherCache(key: "library".toBase64(), cache: cache))
             .tryMap {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase

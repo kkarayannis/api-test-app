@@ -2,7 +2,7 @@ import Foundation
 
 import ImageLoader
 
-final class ReadingListItemViewModel: Identifiable {
+final class ReadingListItemViewModel: Identifiable, Equatable {
     let title: String
     let id: String
     let authors: String
@@ -15,6 +15,14 @@ final class ReadingListItemViewModel: Identifiable {
         self.authors = authors
         self.year = year
         self.coverViewModel = coverViewModel
+    }
+    
+    static func == (lhs: ReadingListItemViewModel, rhs: ReadingListItemViewModel) -> Bool {
+        lhs.title == rhs.title &&
+        lhs.id == rhs.id &&
+        lhs.authors == rhs.authors &&
+        lhs.year == rhs.year &&
+        lhs.coverViewModel.url == rhs.coverViewModel.url
     }
     
     #if DEBUG

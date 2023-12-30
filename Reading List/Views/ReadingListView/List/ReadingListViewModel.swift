@@ -19,6 +19,12 @@ final class ReadingListViewModel {
     }
     
     lazy var itemsPublisher: AnyPublisher<[ReadingListItemViewModel], Never> = $itemsResult
+        .removeDuplicates {
+            if case .success(let lhs) = $0, case .success(let rhs) = $1 {
+                return lhs == rhs
+            }
+            return false
+        }
         .compactMap { result in
             switch result {
             case .success(let items):

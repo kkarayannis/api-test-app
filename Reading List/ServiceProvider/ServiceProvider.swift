@@ -1,11 +1,13 @@
 import Foundation
 
+import Cache
 import DataLoader
 import ImageLoader
 
 protocol ServiceProviding {
     func provideDataLoader() -> DataLoading
     func providePageFactory() -> PageFactory
+    func provideCache() -> Caching
 }
 
 final class ServiceProvider: ServiceProviding {
@@ -14,14 +16,19 @@ final class ServiceProvider: ServiceProviding {
         dataLoader
     }
     
-    private lazy var imageLoader = ImageLoader(dataLoader: dataLoader)
+    private lazy var imageLoader = ImageLoader(dataLoader: dataLoader, cache: cache)
     
     private let user = UserImplementation()
     
+    private let cache = Cache(fileManager: FileManager.default)
+    func provideCache() -> Caching {
+        cache
+    }
+    
     private lazy var pageFactory = PageFactoryImplementation(
-        libraryLoader: LibraryLoader(dataLoader: dataLoader, user: user),
+        libraryLoader: LibraryLoader(dataLoader: dataLoader, user: user, cache: cache),
         imageLoader: imageLoader,
-        bookInfoLoader: BookInfoLoader(dataLoader: dataLoader)
+        bookInfoLoader: BookInfoLoader(dataLoader: dataLoader, cache: cache)
     )
     func providePageFactory() -> PageFactory {
         pageFactory
