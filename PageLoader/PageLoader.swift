@@ -18,8 +18,10 @@ public struct PageLoader: View {
     let page: any Page
     @State private var state: PageLoaderState = .loading
     
-    public init(loadablePage: any Page) {
-        self.page = loadablePage
+    public init(page: any Page) {
+        self.page = page
+        
+        page.load()
     }
     
     public var body: some View {
@@ -39,9 +41,6 @@ public struct PageLoader: View {
         .navigationTitle(page.title)
         .onReceive(page.loadingStatePublisher) {
             state = $0
-        }
-        .onAppear {
-            page.load()
         }
     }
 }

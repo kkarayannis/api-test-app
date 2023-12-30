@@ -8,10 +8,7 @@ struct ReadingListApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                let page = serviceProvider.provideViewsFactory().createReadingListPage()
-                PageLoader(loadablePage: page)
-            }
+            NavigationCoordinator(rootPageType: .readingList, pageFactory: serviceProvider.providePageFactory())
         }
     }
 }

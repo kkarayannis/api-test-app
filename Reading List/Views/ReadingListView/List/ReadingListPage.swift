@@ -27,6 +27,4 @@ final class ReadingListPage: Page {
     func load() {
         viewModel.loadItems()
     }
-    
-    
 }

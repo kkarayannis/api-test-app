@@ -76,4 +76,11 @@ final class ReadingListViewModel {
             )
         }
     }
+    
+    #if DEBUG
+    // Used for Previews only
+    func __setItems(_ items: [ReadingListItemViewModel]) {
+        self.itemsResult = .success(items)
+    }
+    #endif
 }

@@ -13,7 +13,9 @@ struct ReadingListView: View {
         
     var body: some View {
         List(items) { item in
-            ReadingListItemView(viewModel: item)
+            NavigationLink(value: PageType.bookInfo(id: item.id)) {
+                ReadingListItemView(viewModel: item)
+            }
         }
         .onReceive(viewModel.itemsPublisher) {
             items = $0
@@ -24,9 +26,9 @@ struct ReadingListView: View {
     }
 }
 
-//#Preview {
-//    let viewModel = ReadingListViewModel(libraryLoader: LibraryLoader.fake, imageLoader: ImageLoader.fake)
-//    viewModel.items = [ReadingListItemViewModel.example]
-//    
-//    return ReadingListView(viewModel: viewModel)
-//}
+#Preview {
+    let viewModel = ReadingListViewModel(libraryLoader: LibraryLoader.fake, imageLoader: ImageLoader.fake)
+    viewModel.__setItems([ReadingListItemViewModel.example])
+    
+    return ReadingListView(viewModel: viewModel)
+}

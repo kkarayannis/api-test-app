@@ -5,7 +5,7 @@ import ImageLoader
 
 protocol ServiceProviding {
     func provideDataLoader() -> DataLoading
-    func provideViewsFactory() -> ViewsFactory
+    func providePageFactory() -> PageFactory
 }
 
 final class ServiceProvider: ServiceProviding {
@@ -23,11 +23,11 @@ final class ServiceProvider: ServiceProviding {
         openLibraryService
     }
     
-    private lazy var viewsFactory = ViewsFactoryImplementation(
+    private lazy var pageFactory = PageFactoryImplementation(
         libraryLoader: openLibraryService.createLibraryLoader(),
         imageLoader: imageLoader
     )
-    func provideViewsFactory() -> ViewsFactory {
-        viewsFactory
+    func providePageFactory() -> PageFactory {
+        pageFactory
     }
 }
