@@ -1,0 +1,52 @@
+{
+  "configurations" : [
+    {
+      "id" : "6D5C28E0-3C7C-40DD-8718-EFCD7E08B02E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Reading List.xcodeproj",
+      "identifier" : "2E4278CA2B3EBAF700907B39",
+      "name" : "Reading List"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Reading List.xcodeproj",
+        "identifier" : "2E5E82D82B415BB100C08573",
+        "name" : "Reading ListTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Reading List.xcodeproj",
+        "identifier" : "2E42794D2B3EC49800907B39",
+        "name" : "DataLoaderTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Reading List.xcodeproj",
+        "identifier" : "2E427A2D2B3F11F300907B39",
+        "name" : "ImageLoaderTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Reading List.xcodeproj",
+        "identifier" : "2E210C112B406F0200D098AD",
+        "name" : "CacheTests"
+      }
+    }
+  ],
+  "version" : 1
+}
