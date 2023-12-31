@@ -6,15 +6,16 @@ import DataLoader
 
 /// Loads the reading list information from the network
 protocol ReadingListLoading {
-    var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> { get }
+    var loadingPublisher: AnyPublisher<ReadingLog, Error> { get }
 }
 
-private enum ReadingListLoaderError: Error {
+enum ReadingListLoaderError: Error {
     case invalidURL
     case networkError
 }
 
 final class ReadingListLoader: ReadingListLoading {
+    private static let readingListCacheKey = "readingList"
     private let dataLoader: DataLoading
     private let user: User
     private let cache: Caching
@@ -25,19 +26,19 @@ final class ReadingListLoader: ReadingListLoading {
         self.cache = cache
     }
     
-    var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> {
+    var loadingPublisher: AnyPublisher<ReadingLog, Error> {
         guard let url = OpenLibraryAPI.url(for: user.username) else {
             return Fail(error: ReadingListLoaderError.invalidURL)
                 .eraseToAnyPublisher()
         }
         
-        return dataLoader.loadData(for: url)
+        return dataLoader.dataLoadingPublisher(for: url)
             .mapError { error in
                 // Handle network error more granularly if needed here.
                 NSLog(error.localizedDescription)
                 return ReadingListLoaderError.networkError
             }
-            .cache(PublisherCache(key: "library".toBase64(), cache: cache))
+            .cache(PublisherCache(key: Self.readingListCacheKey.toBase64(), cache: cache))
             .tryMap {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -48,7 +49,7 @@ final class ReadingListLoader: ReadingListLoading {
     
     #if DEBUG
     private struct ReadingListLoaderFake: ReadingListLoading {
-        var readingLogLoadingPublisher: AnyPublisher<ReadingLog, Error> {
+        var loadingPublisher: AnyPublisher<ReadingLog, Error> {
             Fail(error: PreviewError.unimplemented)
                 .eraseToAnyPublisher()
         }

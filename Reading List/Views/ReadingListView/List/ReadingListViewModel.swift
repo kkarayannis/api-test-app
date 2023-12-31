@@ -54,7 +54,7 @@ final class ReadingListViewModel {
         .eraseToAnyPublisher()
     
     func loadItems() {
-        cancellable = readingListLoader.readingLogLoadingPublisher
+        cancellable = readingListLoader.loadingPublisher
             .receive(on: DispatchQueue.main)
             .map { [weak self] readingLog in
                 guard let self else {

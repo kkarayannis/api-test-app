@@ -6,7 +6,7 @@ import DataLoader
 
 /// Loads book information from the network.
 protocol BookInfoLoading {
-    func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error>
+    func loadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error>
 }
 
 private enum BookLoaderError: Error {
@@ -23,13 +23,13 @@ final class BookInfoLoader: BookInfoLoading {
         self.cache = cache
     }
     
-    func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error> {
+    func loadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error> {
         guard let url = OpenLibraryAPI.url(for: bookID) else {
             return Fail(error: BookLoaderError.invalidURL)
                 .eraseToAnyPublisher()
         }
         
-        return dataLoader.loadData(for: url)
+        return dataLoader.dataLoadingPublisher(for: url)
             .mapError { error in
                 // Handle network error more granularly if needed here.
                 NSLog(error.localizedDescription)
@@ -46,7 +46,7 @@ final class BookInfoLoader: BookInfoLoading {
     
 #if DEBUG
     private struct BookInfoLoaderFake: BookInfoLoading {
-        func bookInfoLoadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error> {
+        func loadingPublisher(for bookID: String) -> AnyPublisher<BookInfo, Error> {
             Fail(error: PreviewError.unimplemented)
                 .eraseToAnyPublisher()
         }

@@ -51,7 +51,7 @@ final class BookInfoViewModel {
     }
     
     func loadBookInfo() {
-        cancellable = bookInfoLoader.bookInfoLoadingPublisher(for: id)
+        cancellable = bookInfoLoader.loadingPublisher(for: id)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 if case .failure(let failure) = completion {

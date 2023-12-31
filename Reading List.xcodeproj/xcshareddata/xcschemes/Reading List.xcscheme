@@ -26,8 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:Reading List.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -92,6 +97,17 @@
                BlueprintIdentifier = "2E210C112B406F0200D098AD"
                BuildableName = "CacheTests.xctest"
                BlueprintName = "CacheTests"
+               ReferencedContainer = "container:Reading List.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2E5E82D82B415BB100C08573"
+               BuildableName = "Reading ListTests.xctest"
+               BlueprintName = "Reading ListTests"
                ReferencedContainer = "container:Reading List.xcodeproj">
             </BuildableReference>
          </TestableReference>

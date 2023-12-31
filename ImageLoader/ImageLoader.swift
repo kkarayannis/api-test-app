@@ -25,7 +25,7 @@ public final class ImageLoader: ImageLoading {
     }
     
     public func loadImage(for url: URL) -> AnyPublisher<UIImage, Error> {
-        dataLoader.loadData(for: url)
+        dataLoader.dataLoadingPublisher(for: url)
             .mapError { error in
                 // Handle network error more granularly if needed here.
                 NSLog(error.localizedDescription)
